@@ -122,10 +122,12 @@
     <ClCompile Include="ConsoleFunction.cpp" />
     <ClCompile Include="ConsoleFunction.h" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Prop.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Prop.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

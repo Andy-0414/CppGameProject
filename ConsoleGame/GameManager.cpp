@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 
 #include "GameManager.h"
@@ -27,14 +27,14 @@ int GameManager::getSizeY() {
 	return this->sizeY;
 }
 
-char GameManager::findTIleString(int id) {
-	char s = ' ';
+string GameManager::findTIleString(int id) {
+	string s = " ";
 	switch (id) {
-	case Tile::AIR: s = ' '; break;
-	case Tile::PLAYER: s = 'p'; break;
-	case Tile::PLAYER_BULLET: s = 'o'; break;
-	case Tile::MONSTER: s = 'm'; break;
-	case Tile::MONSTER_BULLET: s = 'x'; break;
+	case Tile::AIR: s = " "; break;
+	case Tile::PLAYER: s = "O"; break;
+	case Tile::PLAYER_BULLET: s = "*"; break;
+	case Tile::MONSTER: s = "X"; break;
+	case Tile::MONSTER_BULLET: s = "o"; break;
 	}
 	return s;
 };
@@ -43,9 +43,9 @@ void GameManager::renderScreen(int **nextScreen) {
 	for (int y = 0; y < this->sizeY; y++) {
 		for (int x = 0; x < this->sizeX; x++) {
 			if (this->currentScreen[y][x] != nextScreen[y][x]) {
-				gotoxy(x,y);
+				gotoxy(x, y);
 				cout << this->findTIleString(nextScreen[y][x]);
-				this->currentScreen[y][x] = nextScreen[y][x] == NULL ? 0 : nextScreen[y][x];
+				this->currentScreen[y][x] = nextScreen[y][x] == Tile::AIR ? Tile::AIR : nextScreen[y][x];
 			}
 		}
 	}
