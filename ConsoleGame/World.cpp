@@ -29,9 +29,16 @@ int** World::getRenderData() {
 			arr[i][j] = Tile::AIR;
 		}
 	}
+	list<Prop*> removeProps;
 	for (auto prop : propList) {
-		Prop p = *prop;
+		Prop& p = *prop;
+		if (p.isWorldOutCheck()) {
+			removeProps.push_back(prop);
+		}
 		arr[p.getY()][p.getX()] = p.getType();
+	}
+	for (auto prop : removeProps) {
+		propList.remove(prop);
 	}
 
 	return arr;

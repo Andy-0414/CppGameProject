@@ -1,11 +1,12 @@
 #pragma once
-#include <vector>
+#include <iostream>
+#include <list>
 #include "Prop.h"
 
 class World {
 	int sizeX;
 	int sizeY;
-	std::vector<Prop*> propList;
+	std::list<Prop*> propList;
 public:
 	World();
 	World(int, int);

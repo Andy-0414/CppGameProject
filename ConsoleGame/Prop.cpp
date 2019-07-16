@@ -16,19 +16,34 @@ Prop::Prop(int x, int y) {
 	this->velocityX = 0;
 	this->velocityY = 0;
 }
+
+bool Prop::isWorldOutCheck() {
+	return isWorldOut && isWorldOutRemove;
+}
+void Prop::setWorldOutRemove() {
+	isWorldOutRemove = true;
+}
 void Prop::setX(int x) {
-	if (x < 0)
+	if (x < 0) {
 		this->x = 0;
-	else if (x > worldX)
-		this->x = worldX;
+		this->isWorldOut = true;
+	}
+	else if (x > worldX - 1) {
+		this->x = worldX - 1;
+		this->isWorldOut = true;
+	}
 	else
 		this->x = x;
 }
 void Prop::setY(int y) {
-	if (x < 0)
+	if (y < 0) {
 		this->y = 0;
-	else if (x > worldY)
-		this->y = worldY;
+		this->isWorldOut = true;
+	}
+	else if (y > worldY - 1) {
+		this->y = worldY - 1;
+		this->isWorldOut = true;
+	}
 	else
 		this->y = y;
 }
@@ -53,30 +68,21 @@ void Prop::setType(Tile type) {
 	this->type = type;
 }
 void Prop::moveX(int x) {
-	if (this->x + x < 0)
-		this->x = 0;
-	else if (this->x + x > worldX - 1)
-		this->x = worldX - 1;
-	else
-		this->x += x;
+	this->setX(this->getX() + x);
 }
 void Prop::moveY(int y) {
-	if (this->y + y < 0)
-		this->y = 0;
-	else if (this->y + y > worldY - 1)
-		this->y = worldY - 1;
-	else
-		this->y += y;
+	this->setY(this->getY() + y);
+
 }
 void Prop::moveXY(int x, int y) {
 	this->moveX(x);
 	this->moveY(y);
 }
 void Prop::applyVelocityX(double x) {
-	this->velocityX += (x-this->velocityX) / friction/4;
+	this->velocityX += (x - this->velocityX) / friction / 5;
 }
 void Prop::applyVelocityY(double y) {
-	this->velocityY += (y-this->velocityY) / friction/4;
+	this->velocityY += (y - this->velocityY) / friction / 5;
 }
 void Prop::applyVelocityXY(double x, double y) {
 	this->applyVelocityX(x);
@@ -85,12 +91,14 @@ void Prop::applyVelocityXY(double x, double y) {
 void Prop::physicsTIck() {
 	this->moveX((int)this->velocityX);
 	this->moveY((int)this->velocityY);
-	if (this->velocityX < 0.5 && this->velocityX > -0.5)
+	if (this->velocityX < 0.1 && this->velocityX > -0.1)
 		this->velocityX = 0;
-	if (this->velocityY < 0.5 && this->velocityY > -0.5)
+	if (this->velocityY < 0.1 && this->velocityY > -0.1)
 		this->velocityY = 0;
-	this->velocityX -= this->velocityX / friction/10;
-	this->velocityY -= this->velocityY / friction/10;
+	if (friction) {
+		this->velocityY -= this->velocityY / friction / 10;
+		this->velocityX -= this->velocityX / friction / 10;
+	}
 	//cout <<"("<<floor(this->velocityX) << "," << floor(this->velocityY)<<")"<<endl;
 }
 int Prop::getX() {

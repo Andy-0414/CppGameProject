@@ -2,12 +2,14 @@
 #include <string>
 #include <locale>
 #include <Windows.h>
+#include <cmath>
 
 #include "GameManager.h"
 #include "ConsoleFunction.h"
 #include "World.h"
 #include "Prop.h"
 
+#define PI 3.14159265
 using namespace std;
 
 int main() {
@@ -20,10 +22,8 @@ int main() {
 
 	Prop player;
 	player.setType(Tile::PLAYER);
-	player.setFriction(1.1);
-
+	player.setFriction(1.3);
 	world.addProp(&player);
-
 
 	while (true) {
 		if (GetKeyState('W') & 0x8000)
@@ -34,8 +34,17 @@ int main() {
 			player.applyVelocityY(4);
 		if (GetKeyState('D') & 0x8000)
 			player.applyVelocityX(4);
+		if (GetKeyState(VK_SPACE) & 0x8000) {
+			Prop* bullet= new Prop(player.getX(), player.getY());
+			bullet->setVelocityY(-4);
+			bullet->setType(Tile::PLAYER_BULLET);
+			bullet->setFriction(0);
+			bullet->setWorldOutRemove();
+			world.addProp(bullet);
+		}
+
 		world.physicsAllTicks();
 		gm.renderScreen(world.getRenderData());
-		Sleep(1000.0 / 24.0);
+		Sleep(1000.0 / 30.0);
 	}
 }

@@ -3,13 +3,17 @@
 class Prop {
 	int x;
 	int y;
+	bool isWorldOut = false;
+	bool isWorldOutRemove = false;
 	double velocityX;
 	double velocityY;
-	double friction;
+	double friction = 1;
 	Tile type = Tile::AIR;
 public:
 	Prop();
 	Prop(int, int);
+	bool isWorldOutCheck();
+	void setWorldOutRemove();
 	void setX(int);
 	void setY(int);
 	void setXY(int, int);
