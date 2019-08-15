@@ -35,9 +35,6 @@ public:
 	double getVelocityY();
 	double getFriction();
 	Tile getType();
-};
-class TextView : Prop {
-	Tile type = Tile::TEXTVIEW;
 	std::string text = "";
 	std::string getString();
 	void setString(std::string);

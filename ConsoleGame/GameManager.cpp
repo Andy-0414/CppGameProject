@@ -35,6 +35,7 @@ string GameManager::findTIleString(int id) {
 	case Tile::PLAYER_BULLET: s = "*"; break;
 	case Tile::MONSTER: s = "X"; break;
 	case Tile::MONSTER_BULLET: s = "o"; break;
+	default: s = id;
 	}
 	return s;
 };
@@ -45,8 +46,14 @@ void GameManager::renderScreen(int **nextScreen) {
 			if (this->currentScreen[y][x] != nextScreen[y][x]) {
 				gotoxy(x, y);
 				cout << this->findTIleString(nextScreen[y][x]);
+				if (this->currentScreen[y][x] == Tile::PLAYER && nextScreen[y][x] == Tile::MONSTER) {
+					this->stop = true;
+				}
 				this->currentScreen[y][x] = nextScreen[y][x] == Tile::AIR ? Tile::AIR : nextScreen[y][x];
 			}
 		}
 	}
+}
+bool GameManager::getStop() {
+	return stop;
 }

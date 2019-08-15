@@ -99,7 +99,6 @@ void Prop::physicsTIck() {
 		this->velocityY -= this->velocityY / friction / 10;
 		this->velocityX -= this->velocityX / friction / 10;
 	}
-	//cout <<"("<<floor(this->velocityX) << "," << floor(this->velocityY)<<")"<<endl;
 }
 int Prop::getX() {
 	return x;
@@ -120,9 +119,9 @@ Tile Prop::getType() {
 	return type;
 }
 
-string TextView::getString() {
+string Prop::getString() {
 	return text;
 }
-void TextView::setString(string text) {
+void Prop::setString(string text) {
 	this->text = text;
 }

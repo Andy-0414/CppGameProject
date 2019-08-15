@@ -12,8 +12,9 @@ typedef enum Tile {
 } Tile;
 
 class GameManager {
-	const int sizeX = 50;
+	const int sizeX = 100;
 	const int sizeY = 50;
+	bool stop = false;
 	int **currentScreen;
 public:
 	static GameManager& getGameManager();
@@ -24,4 +25,5 @@ public:
 	int getSizeY();
 	std::string findTIleString(int id);
 	void renderScreen(int **nextScreen);
+	bool getStop();
 };

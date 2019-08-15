@@ -35,7 +35,16 @@ int** World::getRenderData() {
 		if (p.isWorldOutCheck()) {
 			removeProps.push_back(prop);
 		}
-		arr[p.getY()][p.getX()] = p.getType();
+		Tile type = p.getType();
+		if (type == Tile::TEXTVIEW) {
+			int x = 0;
+			for (char& c : p.getString()) {
+				arr[p.getY()][p.getX() + x++] = c;
+			}
+		}
+		else {
+			arr[p.getY()][p.getX()] = type;
+		}
 	}
 	for (auto prop : removeProps) {
 		propList.remove(prop);
